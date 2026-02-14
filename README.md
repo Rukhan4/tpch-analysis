@@ -9,6 +9,7 @@ This project analyzes the [TPC-H](https://www.tpc.org/tpch/) benchmark dataset u
 
 - Database: SQLite
 - Language: SQL + Python
+- Business Insight Tools: Excel, PowerBI
 - Libraries: pandas, seaborn, matplotlib, sqlite3
 - IDE: Visual Studio Code with Jupyter extension
 
@@ -87,4 +88,5 @@ Open `tpch_analysis.ipynb` in VS Code with the Jupyter extension and execute all
 - Use Python and pandas to process and visualize SQL results
 - Analyze benchmark datasets in a structured project
 - Apply window functions and multi-join logic in SQL
+- Utilize Excel and PowerBI to create business insights
 
