@@ -1,92 +1,109 @@
-# TPC-H SQL + Python Analytics
+# TPC-H End-to-End Data Analytics Project
 
-This project analyzes the [TPC-H](https://www.tpc.org/tpch/) benchmark dataset using SQLite, SQL, and Python (pandas + seaborn). It demonstrates real-world data analytics workflows combining relational queries with Python visualizations.
+This project analyzes the [TPC-H](https://www.tpc.org/tpch/) benchmark dataset using SQL, Python, and Excel to simulate a real-world analytics workflow. It demonstrates the ability to extract relational data, model operational and financial risk, and translate technical outputs into an executive KPI dashboard.
 
-## Project Structure
+---
 
+## KPI Dashboard Preview
+
+![KPI Dashboard](./kpi%20dashboard.jpg)
+
+---
 
 ## Tech Stack
 
-- Database: SQLite
-- Language: SQL + Python
-- Business Insight Tools: Excel, PowerBI
-- Libraries: pandas, seaborn, matplotlib, sqlite3
-- IDE: Visual Studio Code with Jupyter extension
+**Database:** SQLite  
+**Languages:** SQL, Python  
+**Python Libraries:** pandas, matplotlib, seaborn, sqlite3  
+**Excel Tools:** Pivot Tables, XLOOKUP, calculated fields, ranking formulas, statistical functions  
+**Visualization:** Excel, Power BI  
+**IDE:** VS Code (Jupyter)
 
-## Analyses
+---
 
-### 1. Annual Revenue Trend
+## Project Workflow
 
-Shows yearly revenue across all orders.
+### 1. Data Extraction (SQL)
 
-- SQL: JOIN `orders` + `lineitem`
-- Visualization: Bar chart of revenue by year
+- Multi-table JOINs across normalized schema
+- Aggregations with `GROUP BY`
+- Revenue calculations with discount adjustments
+- Delivery delay calculations using date functions
+- Common Table Expressions (CTEs)
+- Window functions (`RANK() OVER (PARTITION BY ...)`)
+- Regional supplier ranking
+- Shipping mode performance aggregation
 
-```sql
-SELECT substr(o_orderdate, 1, 4) AS year, 
-       SUM(l_extendedprice * (1 - l_discount)) AS total_revenue
-FROM orders
-JOIN lineitem ON o_orderkey = l_orderkey
-GROUP BY year;
-```
+---
 
-### 2. Top 10 Customers by Total Spend
+### 2. Data Modeling & Analysis (Python)
 
-Identifies the top 10 customers by total revenue generated.
+- Query execution and result processing with `sqlite3`
+- Data transformation and aggregation using `pandas`
+- Revenue trend analysis
+- Delay impact modeling
+- Risk-adjusted revenue calculation
+- Revenue-at-risk computation
+- Operational efficiency ranking
+- Statistical metrics:
+  - Mean
+  - Standard deviation
+  - Coefficient of variability
+- Data visualization using matplotlib and seaborn
 
-- SQL: JOIN `customer`, `orders`, `lineitem`
-- Visualization: Horizontal bar chart of customer spend
+---
 
-### 3. Most Popular Ship Modes
+### 3. Business Intelligence & KPI Dashboard (Excel)
 
-Shows shipment volume and revenue by shipping method.
+Built an executive dashboard integrating SQL and Python outputs.
 
-- SQL: GROUP BY `l_shipmode`
-- Visualizations:
-  - Shipment count by mode
-  - Revenue by mode
+Key components:
 
-### 4. Delivery Delays by Ship Mode
+#### Operational Risk Modeling
+- Delay impact by shipping mode
+- Risk-adjusted revenue
+- Revenue at Risk
+- Operational efficiency ranking
+- Revenue recovery potential modeling
 
-Calculates average delivery delays and their financial impact.
+#### Concentration & Dependency Analysis
+- Top 10 customer analysis
+- Customer concentration ratio (CR10)
+- Herfindahl-Hirschman Index (HHI)
+- Supplier revenue distribution by region
+- Supplier geographic concentration index
 
-- SQL: Uses `julianday()` and CASE filtering
-- Visualizations:
-  - Average delay by ship mode
-  - Count of delayed shipments
-  - Revenue from delayed orders
+#### Excel Techniques Used
+- Pivot Tables for aggregation and segmentation
+- XLOOKUP for cross-table metric mapping
+- Calculated KPI fields
+- Ranking functions
+- Statistical functions (AVERAGE, STDEV, etc.)
+- Custom financial modeling formulas
+- Dashboard layout and visualization design
 
-### 5. Top Supplier per Region by Revenue (Advanced SQL)
+---
 
-Ranks suppliers in each region by revenue using CTEs and window functions.
+## Key Analytical Insights
 
-- SQL: RANK() OVER (PARTITION BY ...), WITH clause (CTE)
-- Visualization: Bar chart of top supplier revenue per region
+- Revenue per shipment is tightly clustered across shipping modes.
+- Delay impact varies significantly, indicating mispriced operational risk.
+- Certain logistics channels exhibit inefficient risk-return profiles.
+- Customer and supplier concentration risk is structurally balanced.
+- Operational optimization presents the strongest margin stabilization opportunity.
 
-## Getting Started
+---
 
-1. Clone the repository:
+## Skills Demonstrated
 
-```bash
-git clone https://github.com/your_username/tpch-analysis.git
-cd tpch-analysis
-```
+- Relational data modeling and advanced SQL querying  
+- Window functions and ranking logic  
+- Financial and operational risk modeling  
+- Statistical analysis and variability measurement  
+- Concentration index modeling (HHI, CR10)  
+- End-to-end data pipeline development  
+- Executive dashboard design and KPI translation  
 
-2. Install dependencies:
+---
 
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the notebook:
-
-Open `tpch_analysis.ipynb` in VS Code with the Jupyter extension and execute all cells.
-
-## Learning Outcomes
-
-- Write efficient SQL queries across normalized schemas
-- Use Python and pandas to process and visualize SQL results
-- Analyze benchmark datasets in a structured project
-- Apply window functions and multi-join logic in SQL
-- Utilize Excel and PowerBI to create business insights
-
+This project demonstrates the ability to move from normalized relational data to structured analysis, quantitative risk modeling, and executive-level business intelligence.
